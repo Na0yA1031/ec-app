@@ -2,17 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import createStore from './reducks/store/store';
+import { ConnectedRouter } from 'connected-react-router';
+import * as History from 'history';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+
+const history = History.createBrowserHistory();
+
 // createStoreを実行することで初めてStoreが作られる
-export const store = createStore();
+export const store = createStore(history);
 
 ReactDOM.render(
   // ProviderでAppコンポーネントを囲むことでApp以下のコンポーネントでstoreが参照できる
   <Provider store={store}>
-    <App />
+    <ConnectedRouter history={history} >
+      <App />
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
 );
